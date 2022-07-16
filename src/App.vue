@@ -1,32 +1,39 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="">
+    
+    <van-button type="primary">主要按钮</van-button>
+    <van-button type="info">信息按钮</van-button>
+    <van-button type="default">默认按钮</van-button>
+    <van-button type="warning">警告按钮</van-button>
+    <van-button type="danger">危险按钮</van-button>
+    <router-view></router-view>
   </div>
 </template>
-
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  // 模块名
+  name: "",
+  // 被传递的内容
+  props: {},
+  // 注册的模块
+  components: {},
+  // 计算属性
+  computed: {},
+  // 监听
+  watch: {},
+  // 方法
+  methods: {},
+  // 钩子函数 创建
+  created() {},
+  // 钩子函数 挂载
+  mounted() {},
+  // 钩子函数 摧毁
+  beforeDestroy() {},
+  // 局部指令
+  directives: {},
+};
+</script>
+<style lang="less" scoped></style>
