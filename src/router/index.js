@@ -46,6 +46,10 @@ const routes = [
     component: () => import("@/views/login.vue"),
     meta: { title: "登录" },
   },
+  {
+    path: "/search",
+    component: () => import("@/views/search/index"),
+  },
 
   // route level code-splitting
   // this generates a separate chunk (about.[hash].js) for this route

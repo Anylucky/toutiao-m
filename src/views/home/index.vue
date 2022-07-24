@@ -2,7 +2,7 @@
   <div class="home-container">
     <!-- 导航栏 原本只能通过title属性设置一个导航栏的标题，现在添加一个搜索按钮，需要插槽-->
     <!-- 这样的效果就是将原本标题的位置，换成一个按钮进行显示 -->
-    <van-nav-bar class="page-nav-bar">
+    <van-nav-bar class="page-nav-bar" fixed>
       <!--增加一个名字为title的插槽 -->
       <van-button
         class="search-btn"
@@ -11,6 +11,7 @@
         size="small"
         round
         icon="search"
+        to="/search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -22,6 +23,8 @@
       v-model="active"
       color="#fb7299"
       title-active-color="#fc8bab"
+      offset-top="1.22667rem"
+      sticky
     >
       <van-tab
         v-for="item in channelList"
@@ -29,23 +32,54 @@
         :title="item.name"
         line-width="40px"
       >
-        {{ item.name }}</van-tab
-      >
+        <list_data :listData="item" class="mao2"></list_data>
+      </van-tab>
       <div slot="nav-right" class="placeholder"></div>
-      <div slot="nav-right" class="hamburger-btn">
+      <div slot="nav-right" class="hamburger-btn" @click="hamburger">
         <i class="iconmoon icon-6" style="color: #fc8bab"></i>
       </div>
     </van-tabs>
+
+    <!-- 编辑导航部分 -->
+    <van-popup
+      v-model="popup"
+      round
+      position="bottom"
+      :style="{ height: '100%' }"
+      closeable
+      close-icon-position="top-left"
+    >
+      <!-- 标题 -->
+      <van-nav-bar title="编辑频道" />
+      <!-- 主体 -->
+      <channelEditing
+        :channel="channelList"
+        :highlight="active"
+        @pushData="tiaozhuan"
+      ></channelEditing>
+    </van-popup>
   </div>
 </template>
 <script>
 import { userChannelAPI } from "@/api/index";
+
+// 导入模块
+import list_data from "./component/art-list";
+
+// 导入频道编辑主体模块
+import channelEditing from "@/components/channelEditing/index.vue";
+
+// 导入 vuex
+import { mapState } from "vuex";
+import { getItem } from "@/store/strong";
 export default {
   data() {
     return {
       value: "",
       active: 0,
       channelList: [],
+      listData: "文件列表组件",
+      popup: false,
     };
   },
   // 组件名
@@ -53,27 +87,57 @@ export default {
   // 接收父传递的内容
   props: {},
   // 注册的模块
-  components: {},
+  components: {
+    list_data,
+    channelEditing,
+  },
   // 计算属性
-  computed: {},
+  computed: {
+    // 挂载映射
+    ...mapState(["userimg"]),
+  },
   // 监听
   watch: {},
   // 方法
-  methods: {},
+  methods: {
+    hamburger() {
+      // console.log("1111");
+      this.popup = true;
+    },
+    // 设置先拉框选项 默认为关闭
+    tiaozhuan(item, mao = false) {
+      // console.log("父已被触发");
+      // console.log(this.channelList);
+      // console.log(item);
+      // let data1 = this.channelList.findIndex((item1) => {
+      //   return item1.id == item.id;
+      // });
+      this.active = item;
+      this.popup = mao;
+    },
+  },
   // 局部指令
   directives: {},
   // 以下为钩子函数
   // 钩子函数 创建
   async created() {
-    try {
-      let { data } = await userChannelAPI();
-      this.channelList = data?.data?.channels;
-    } catch (error) {
-      if (error.response.status === 507) {
-        console.log("数据库错误", error);
-      } else {
-        console.log("获取数据错误");
+    let bo1 = getItem("NouSerimg");
+    console.log(bo1);
+    // 判断是否登录
+    if (this.userimg || !bo1) {
+      try {
+        let { data } = await userChannelAPI();
+        this.channelList = data?.data?.channels;
+      } catch (error) {
+        if (error.response.status === 507) {
+          console.log("数据库错误", error);
+        } else {
+          console.log("获取数据错误");
+        }
       }
+    } else {
+      // 未登录
+      this.channelList = bo1;
     }
   },
   // 钩子函数 挂载
@@ -160,7 +224,7 @@ export default {
   height: 82px;
   background-color: #fff;
   opacity: 0.902;
-  i.toutiao {
+  i.icon-6 {
     font-size: 33px;
   }
   &:before {
@@ -173,5 +237,11 @@ export default {
     background-image: url(~@/assets/gradient-gray-line.png);
     background-size: contain;
   }
+}
+.mao2 {
+  padding-top: 90px;
+}
+::v-deep .van-nav-bar__title {
+  color: white;
 }
 </style>
