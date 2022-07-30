@@ -14,7 +14,7 @@
           <span class="name">{{ UserImg.name }}</span>
         </div>
         <div class="right">
-          <van-button size="mini" round>编辑资料</van-button>
+          <van-button size="mini" round to="/user">编辑资料</van-button>
         </div>
       </div>
       <div class="data-stats">
@@ -90,7 +90,6 @@ export default {
   components: {},
   // 计算属性
   computed: {
-    
     //store映射
     ...mapState(["userimg"]),
   },

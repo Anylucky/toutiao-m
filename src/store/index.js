@@ -14,6 +14,7 @@ export default new Vuex.Store({
     setUser(state, val) {
       console.log(val);
       state.userimg = val;
+      console.log(state.userimg);
       // 备份  读取vuex数据
       setItem("userimg", state.userimg);
     },

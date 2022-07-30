@@ -9,6 +9,7 @@ const routes = [
   {
     path: "/",
     name: "layout",
+    redirect: "/home",
     component: () => import("@/views/layout/index.vue"),
     children: [
       {
@@ -49,6 +50,17 @@ const routes = [
   {
     path: "/search",
     component: () => import("@/views/search/index"),
+  },
+  {
+    path: "/article/:articleId",
+    name: "article",
+    component: () => import("@/views/article/index"),
+    props: true,
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("@/views/user/index"),
   },
 
   // route level code-splitting

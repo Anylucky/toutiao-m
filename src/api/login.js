@@ -1,7 +1,7 @@
-import axios from "../util/request";
+import axios1 from "../util/request";
 
 export const register = (data) => {
-  return axios({
+  return axios1({
     method: "POST",
     url: "/v1_0/authorizations",
     data,

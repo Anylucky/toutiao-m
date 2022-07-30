@@ -244,4 +244,7 @@ export default {
 ::v-deep .van-nav-bar__title {
   color: white;
 }
+:deep(element.style) {
+  top: none;
+}
 </style>

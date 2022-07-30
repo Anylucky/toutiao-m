@@ -1,7 +1,7 @@
-import axios from "../util/request";
+import axios1 from "../util/request";
 
 export const listData = (params) => {
-  return axios({
+  return axios1({
     url: "/v1_0/articles",
     method: "GET",
     params,

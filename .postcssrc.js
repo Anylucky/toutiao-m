@@ -10,6 +10,9 @@ module.exports = {
       },
 
       propList: ["*"],
+
+      // 不做单位转换
+      exclude: 'github-markdown'
     },
   },
 };

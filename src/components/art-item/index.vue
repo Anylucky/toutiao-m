@@ -1,5 +1,14 @@
 <template>
-  <van-cell size="large" class="article-item">
+  <van-cell
+    size="large"
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: item.art_id,
+      },
+    }"
+  >
     <!-- 标题 -->
     <div slot="title" class="title van-multi-ellipsis--l2">
       {{ item.title }}
@@ -59,12 +68,16 @@ export default {
   // 监听
   watch: {},
   // 方法
-  methods: {},
+  methods: {
+    
+  },
   // 局部指令
   directives: {},
   // 以下为钩子函数
   // 钩子函数 创建
-  created() {},
+  created() {
+   
+  },
   // 钩子函数 挂载
   mounted() {},
   // 钩子函数 更新

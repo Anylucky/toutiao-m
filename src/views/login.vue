@@ -128,6 +128,7 @@ export default {
         try {
           let mao1 = await this.register1(values);
           // console.log(mao1.data.data.token);
+          console.log(mao1.data.data.token);
           this.$store.commit("setUser", mao1.data.data.token);
           console.log("123");
           this.$notify({
